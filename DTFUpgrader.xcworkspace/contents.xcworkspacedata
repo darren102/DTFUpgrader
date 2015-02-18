@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "container:"
+      name = "DTFUpgrader">
+      <Group
+         location = "container:"
+         name = "DTFUpgrader">
+         <FileRef
+            location = "group:DTFUpgrader/DTFUpgraderError.h">
+         </FileRef>
+         <FileRef
+            location = "group:DTFUpgrader/DTFUpgraderError.m">
+         </FileRef>
+         <FileRef
+            location = "group:DTFUpgrader/DTFUpgrader.h">
+         </FileRef>
+         <FileRef
+            location = "group:DTFUpgrader/DTFUpgraderManager.h">
+         </FileRef>
+         <FileRef
+            location = "group:DTFUpgrader/DTFUpgraderManager.m">
+         </FileRef>
+         <FileRef
+            location = "group:DTFUpgrader/DTFUpgraderVersion.h">
+         </FileRef>
+         <FileRef
+            location = "group:DTFUpgrader/DTFUpgraderVersion.m">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:DTFUpgrader-Demo/DTFUpgrader-Demo.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>
