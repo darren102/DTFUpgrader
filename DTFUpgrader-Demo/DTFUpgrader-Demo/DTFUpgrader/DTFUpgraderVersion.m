@@ -57,9 +57,9 @@ static NSString *const kDTFUpgraderVersionFile = @"DTFUpgrader.version";
     static NSString *path = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        // Compose a path to the Library/DTFUpgrader directory
-        NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
-        path = [libraryPath stringByAppendingPathComponent:kDTFUpgraderPathComponent];
+        // Compose a path to the Documents/DTFUpgrader directory
+        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+        path = [documentsPath stringByAppendingPathComponent:kDTFUpgraderPathComponent];
         
         // Ensure the database directory exists
         NSFileManager *manager = [NSFileManager defaultManager];
