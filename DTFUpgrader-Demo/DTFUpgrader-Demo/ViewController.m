@@ -31,6 +31,8 @@
         } failure:^(DTFUpgraderError *failureDetails) {
             NSLog(@"Application upgrade failed");
         }];
+    } else {
+        NSLog(@"Do not need to run application upgrade");
     }
 }
 

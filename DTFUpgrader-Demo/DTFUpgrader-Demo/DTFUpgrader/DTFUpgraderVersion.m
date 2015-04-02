@@ -37,9 +37,11 @@ static NSString *const kDTFUpgraderVersionFile = @"DTFUpgrader.version";
     NSCParameterAssert(currentVersion);
     NSError *error = nil;
     NSString *filePath = [[self sharedDocumentsPath] stringByAppendingPathComponent:kDTFUpgraderVersionFile];
-    if (![currentVersion writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error]) {
-        if (error) {
-            NSLog(@"Error Setting Current Version: %@, %@", currentVersion, [error localizedDescription]);
+    if (filePath) {
+        if (![currentVersion writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error]) {
+            if (error) {
+                NSLog(@"Error Setting Current Version: %@, %@", currentVersion, [error localizedDescription]);
+            }
         }
     }
 }
@@ -54,28 +56,23 @@ static NSString *const kDTFUpgraderVersionFile = @"DTFUpgrader.version";
 
 + (NSString*)sharedDocumentsPath
 {
-    static NSString *path = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // Compose a path to the Documents/DTFUpgrader directory
-        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-        path = [documentsPath stringByAppendingPathComponent:kDTFUpgraderPathComponent];
-        
-        // Ensure the database directory exists
-        NSFileManager *manager = [NSFileManager defaultManager];
-        BOOL isDirectory;
-        if (![manager fileExistsAtPath:path isDirectory:&isDirectory] || !isDirectory) {
-            NSError *error = nil;
-            NSDictionary *attr = [NSDictionary dictionaryWithObject:NSFileProtectionComplete
-                                                             forKey:NSFileProtectionKey];
-            [manager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:attr error:&error];
+    // Compose a path to the Documents/DTFUpgrader directory
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *path = [documentsPath stringByAppendingPathComponent:kDTFUpgraderPathComponent];
+    
+    // Ensure the database directory exists
+    NSFileManager *manager = [NSFileManager defaultManager];
+    BOOL isDirectory;
+    if (![manager fileExistsAtPath:path isDirectory:&isDirectory] || !isDirectory) {
+        NSError *error = nil;
+        if (![manager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error]) {
             if (error) {
                 NSLog(@"Error creating directory path: %@", [error localizedDescription]);
             }
+            return nil;
         }
-    });
+    }
     return path;
-
 }
 
 @end
